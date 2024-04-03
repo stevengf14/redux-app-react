@@ -1,5 +1,5 @@
 import "./App.css";
-import ButtonBox from "./components/buttonBox/buttonBox";
+import ButtonBox from "./components/buttonBox/ButtonBox";
 
 function App() {
   return (
