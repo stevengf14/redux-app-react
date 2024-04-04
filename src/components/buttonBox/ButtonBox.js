@@ -1,10 +1,9 @@
 import { connect } from "react-redux";
 import "./ButtonBox.css";
-import navState from "../../redux/reducers/navReducer";
-import navClick from "../../redux/actions/navActions";
+import { navClick } from "../../redux/actions/navActions";
 
-const ButtonBox = (_title) => {
-  const buttonClick = () => {
+const ButtonBox = ({ title, navClick }) => {
+  const buttonClick = (_title) => {
     navClick({
       title: _title,
     });
@@ -13,7 +12,7 @@ const ButtonBox = (_title) => {
     <div className="ButtonBox">
       <header className="App-header">
         <div>
-          <h1>Title</h1>
+          <h1>{title}</h1>
           <ul>
             <li onClick={() => buttonClick("Home")}>Home</li>
             <li onClick={() => buttonClick("List")}>List</li>
