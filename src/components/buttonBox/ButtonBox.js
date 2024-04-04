@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import "./ButtonBox.css";
 import { navClick } from "../../redux/actions/navActions";
 
@@ -29,4 +30,5 @@ const mapStateToProps = (state) => {
     title: state.navState.title,
   };
 };
+
 export default connect(mapStateToProps, { navClick })(ButtonBox);
