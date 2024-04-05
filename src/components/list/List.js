@@ -1,14 +1,20 @@
 import { connect } from "react-redux";
 import "./List.css";
 import { useEffect } from "react";
-import axios from "axiosS";
+import axios from "axios";
+import { storeAll } from "../../redux/actions/apiActions";
+import apiState from "../../redux/reducers/apiReducer";
+import Item from "../item/Item";
 
-const List = () => {
+const List = ({ list, storeAll }) => {
   useEffect(() => {
     axios
       .get("http://dev.contanimacion.com/api_tablon/api/mensajes")
       .then(({ data }) => {
         console.log("Data", data);
+        storeAll({
+          list: data,
+        });
       })
       .catch((error) => {
         console.log("Error", error);
@@ -28,6 +34,8 @@ const List = () => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    list: state.apiState.list,
+  };
 };
-export default connect(mapStateToProps, {})(List);
+export default connect(mapStateToProps, { storeAll })(List);
