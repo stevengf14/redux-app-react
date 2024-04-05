@@ -18,6 +18,11 @@ const List = () => {
   return (
     <div className="List">
       <h1>List</h1>
+      {list && list.length
+        ? list.map((item, index) => {
+            return <Item data={item} key={index} />;
+          })
+        : ""}
     </div>
   );
 };
