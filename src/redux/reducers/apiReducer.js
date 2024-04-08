@@ -10,6 +10,7 @@ const apiState = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload.list,
+        loading: action.payload.loading,
       };
     }
     default:
