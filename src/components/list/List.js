@@ -2,28 +2,13 @@ import { connect } from "react-redux";
 import "./List.css";
 import { useEffect } from "react";
 import axios from "axios";
-import { storeAll } from "../../redux/actions/apiActions";
+import { fetchData, storeAll } from "../../redux/actions/apiActions";
 import apiState from "../../redux/reducers/apiReducer";
 import Item from "../item/Item";
 
-const List = ({ list, loading, storeAll }) => {
+const List = ({ list, loading, storeAll, fetchData }) => {
   useEffect(() => {
-    storeAll({
-      list: [],
-      loading: true,
-    });
-    axios
-      .get("http://dev.contanimacion.com/api_tablon/api/mensajes")
-      .then(({ data }) => {
-        console.log("Data", data);
-        storeAll({
-          list: data,
-          loading: false,
-        });
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
+    fetchData();
   }, []);
 
   return (
@@ -45,4 +30,4 @@ const mapStateToProps = (state) => {
     loading: state.apiState.loading,
   };
 };
-export default connect(mapStateToProps, { storeAll })(List);
+export default connect(mapStateToProps, { storeAll, fetchData })(List);

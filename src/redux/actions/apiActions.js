@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as types from "./actionTypes";
 
 export const storeAll = (data) => ({
@@ -30,3 +31,21 @@ export const requestError = (error) => ({
     loading: false,
   },
 });
+
+const getData = () => {
+  return axios
+    .get("http://dev.contanimacion.com/api_tablon/api/mensajes")
+    .then((res) => res)
+    .catch((error) => error);
+};
+
+export const fetchData = () => (dispatch) => {
+  dispatch(sendingRequest());
+  return getData()
+    .then((data) => {
+      dispatch(requestSuccess());
+    })
+    .catch((error) => {
+      dispatch(requestError());
+    });
+};
