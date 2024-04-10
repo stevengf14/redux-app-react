@@ -43,9 +43,37 @@ export const fetchData = () => (dispatch) => {
   dispatch(sendingRequest());
   return getData()
     .then((data) => {
-      dispatch(requestSuccess());
+      dispatch(requestSuccess(data));
     })
     .catch((error) => {
-      dispatch(requestError());
+      dispatch(requestError(error));
+    });
+};
+
+// POSTS
+
+export const requestPostSuccess = (data) => ({
+  type: types.REQUEST_POST_SUCCESS,
+  payload: {
+    ok: data.data[0].ok,
+    loading: false,
+  },
+});
+
+const postData = (data) => {
+  return axios
+    .post("http://dev.contanimacion.com/api_tablon/api/mensajes/add", data)
+    .then((res) => res)
+    .catch((error) => error);
+};
+
+export const sendNew = (data) => (dispatch) => {
+  dispatch(sendingRequest());
+  return postData(data)
+    .then((data) => {
+      dispatch(requestPostSuccess(data));
+    })
+    .catch((error) => {
+      dispatch(requestError(error));
     });
 };

@@ -4,3 +4,5 @@ export const STORE_ALL = "StoreAll";
 export const SENDING_REQUEST = "SendingRequest";
 export const REQUEST_SUCCESS = "RequestSuccess";
 export const REQUEST_ERROR = "RequestError";
+
+export const REQUEST_POST_SUCCESS = "RequestPostSuccess";
