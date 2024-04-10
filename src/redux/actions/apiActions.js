@@ -19,7 +19,7 @@ export const sendingRequest = () => ({
 export const requestSuccess = (data) => ({
   type: types.REQUEST_SUCCESS,
   payload: {
-    list: data.list,
+    list: data.data,
     loading: false,
   },
 });
