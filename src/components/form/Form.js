@@ -1,7 +1,14 @@
 import { connect } from "react-redux";
 import "./Form.css";
+import { reduxForm } from "redux-form";
 
-const Form = () => {
+const validate = values => {
+  const errors = {};
+
+  return errors;
+}
+
+let Form = ({}) => {
   return (
     <div className="Form">
       <h1>New</h1>
@@ -9,6 +16,13 @@ const Form = () => {
   );
 };
 
+Form = reduxForm(
+  {
+    form: "new",
+    validate
+  }
+)
+(Form)
 const mapStateToProps = (state) => {
   return {};
 };
