@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import "./Form.css";
 import { reduxForm, Field } from "redux-form";
+import { sendNew } from "../../redux/actions/apiActions";
 
 const validate = (values) => {
   const errors = {};
@@ -40,11 +41,15 @@ const renderField = ({
   </div>
 );
 
-let Form = ({}) => {
+let Form = ({ responseOk, loading, sendNew, handleSubmit }) => {
+  const beforeSubmit = (values) => {
+    values.user_id = 13;
+    sendNew(values);
+  };
   return (
     <div className="Form">
       <h3>Add new message</h3>
-      <form>
+      <form onSubmit={handleSubmit(beforeSubmit)}>
         <div>
           <Field
             name="subject"
@@ -53,18 +58,21 @@ let Form = ({}) => {
             component={renderField}
           />
         </div>
+
+        <div>
+          <Field
+            name="message"
+            label="message"
+            type="text"
+            component={renderField}
+          />
+        </div>
+        <div>
+          <input type="submit" value="Send" className="send" />
+        </div>
       </form>
-      <div>
-        <Field
-          name="message"
-          label="message"
-          type="text"
-          component={renderField}
-        />
-      </div>
-      <div>
-        <input type="submit" value="Send" className="send" />
-      </div>
+      {loading ? "Loading data..." : ""}
+      {responseOk ? "Data sended successfuly..." : ""}
     </div>
   );
 };
@@ -74,6 +82,9 @@ Form = reduxForm({
   validate,
 })(Form);
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    responseOk: state.apiState.ok,
+    loading: state.apiState.loading,
+  };
 };
-export default connect(mapStateToProps, {})(Form);
+export default connect(mapStateToProps, { sendNew })(Form);
